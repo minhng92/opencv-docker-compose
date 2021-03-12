@@ -1,0 +1,24 @@
+version: '2.3'
+services:
+  opencv:
+    image: minhng/opencv:4.5.1
+    container_name: minhng_opencv
+    ports:
+      - "10000:8888" # jupyter
+    environment:
+      jupyter_base_url: /
+      jupyter_pass: minh@2021
+    volumes:
+      - ./workspace:/workspace
+      - ./run.sh:/run.sh
+    user: root
+    build:
+      context: build
+      dockerfile: Dockerfile
+      args:
+        UBUNTU_VERSION: 20.04
+        OPENCV_VERSION: 4.5.1
+    #devices:
+    #  - "/dev/ttyUSB0:/dev/ttyUSB0"
+    ipc: host
+    restart: unless-stopped     # or "always"
