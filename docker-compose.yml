@@ -1,10 +1,10 @@
 version: '2.3'
 services:
   lab_opencv:
-    image: minhng/opencv:4.5.4
+    image: minhng/opencv:4.8.1
     container_name: lab_opencv
     ports:
-      - "10001:8888" # jupyter
+      - "10002:8888" # jupyter
     environment:
       JP_BASE_URL: /
       JP_PASS: minh@23
@@ -12,14 +12,10 @@ services:
       - ./workspace:/workspace
     user: root
     build:
-      context: build
+      context: .
       dockerfile: Dockerfile
-      args:
-        UBUNTU_VERSION: 20.04
-        OPENCV_VERSION: 4.5.1
     #devices:
     #  - "/dev/ttyUSB0:/dev/ttyUSB0"
     ipc: host
     restart: unless-stopped     # or "always"
     command: bash -c "chmod +x /workspace/run.sh && /workspace/run.sh"
-    
