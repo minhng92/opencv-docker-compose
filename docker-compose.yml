@@ -1,16 +1,15 @@
 version: '2.3'
 services:
-  opencv:
-    image: minhng/opencv:4.5.1
-    container_name: minhng_opencv
+  lab_opencv:
+    image: minhng/opencv:4.5.4
+    container_name: lab_opencv
     ports:
-      - "10000:8888" # jupyter
+      - "10001:8888" # jupyter
     environment:
-      jupyter_base_url: /
-      jupyter_pass: minh@2021
+      JP_BASE_URL: /
+      JP_PASS: minh@23
     volumes:
       - ./workspace:/workspace
-      - ./run.sh:/run.sh
     user: root
     build:
       context: build
@@ -22,3 +21,5 @@ services:
     #  - "/dev/ttyUSB0:/dev/ttyUSB0"
     ipc: host
     restart: unless-stopped     # or "always"
+    command: bash -c "chmod +x /workspace/run.sh && /workspace/run.sh"
+    
